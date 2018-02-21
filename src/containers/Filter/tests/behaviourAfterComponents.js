@@ -1,7 +1,9 @@
-import DateInput from './../../../components/DateInput'
-import SearchField from './../../../components/Input'
-import Button from './../../../components/Button'
-import { CardActions } from './../../../components/Card'
+import {
+  DateInput,
+  Input,
+  Button,
+  CardActions,
+} from 'former-kit'
 
 import {
   togglableFilters,
@@ -62,7 +64,7 @@ const submitDateInput = () => {
 
 const submitWithSearchInput = () => {
   const { onChange, component } = createComponents()
-  const searchInput = component.find(SearchField).first()
+  const searchInput = component.find(Input).first()
 
   searchInput
     .find('input')
@@ -171,7 +173,7 @@ const submitWithAll = () => {
       .props()
       .value
     )
-  const searchInput = component.find(SearchField).first()
+  const searchInput = component.find(Input).first()
   searchInput
     .find('input')
     .simulate('change', {

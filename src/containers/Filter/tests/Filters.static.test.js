@@ -87,16 +87,16 @@ describe('Filters', () => {
       toggleFilterOptions(component)
 
       const filterGroups = component.find(CheckboxGroup)
+
       const selectedCheckboxFilters = filterGroups
-        .findWhere(node => {
-          console.log(node)
-          return node.is('input') && node.props().checked === true
-        })
+        .findWhere(node => 
+          node.find('input') && node.find('input').props().checked === true
+        )
 
       expect(selectedCheckboxFilters.length).toBe(selectedFilters.length)
 
       // collapse filters section
       toggleFilterOptions(component)
-    }, selectedFilterGroupCase)
+    }, [selectedFilterGroupCase])
   })
 })

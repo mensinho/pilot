@@ -1,6 +1,6 @@
 import {
   DateInput,
-  SearchField,
+  Input,
   CardSection,
   Button,
   CardActions,
@@ -34,7 +34,7 @@ const changeDateInput = () => {
 
 const changeSearchInput = () => {
   const { onChange, component } = createComponents()
-  const searchInput = component.find(SearchField).first()
+  const searchInput = component.find(Input).first()
 
   searchInput
     .find('input')
@@ -104,7 +104,7 @@ const changeAllFilters = () => {
       .props()
       .value
     )
-  const searchInput = component.find(SearchField).first()
+  const searchInput = component.find(Input).first()
   searchInput
     .find('input')
     .simulate('change', {

@@ -2,7 +2,11 @@ import cases from 'jest-in-case'
 
 import {
   DateInput,
+<<<<<<< HEAD
   SearchField,
+=======
+  Input,
+>>>>>>> transactions: add page
   Button,
   Tag,
   CardActions,
@@ -32,7 +36,7 @@ describe('Filters', () => {
         expectedSearchValue,
       }) => {
         const searchInput = component
-          .find(SearchField)
+          .find(Input)
           .first()
 
         expect(searchInput.props().value).toBe(expectedSearchValue)
@@ -132,7 +136,7 @@ describe('Filters', () => {
 
       cases('should SearchInput value be the same as search prop', ({ component, searchValue }) => {
         const searchInput = component
-          .find(SearchField)
+          .find(Input)
           .find('input')
 
         expect(searchInput.props().value).toBe(searchValue)
@@ -207,7 +211,7 @@ describe('Filters', () => {
 
       cases('should SearchInput value be the same as search prop', ({ component, searchValue }) => {
         const searchInput = component
-          .find(SearchField)
+          .find(Input)
           .find('input')
 
         expect(searchInput.props().value).toBe(searchValue)
