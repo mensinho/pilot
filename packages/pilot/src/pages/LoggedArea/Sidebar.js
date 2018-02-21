@@ -47,11 +47,17 @@ class SidebarContainer extends React.Component {
         <SidebarLinks>
           {Object.values(routes).map(({ title, path, icon: Icon }) => (
             <SidebarLink
+              key={path}
               title={title}
               active={path === pathname}
               icon={<Icon width={16} height={16} />}
               collapsed={collapsed}
-              onClick={() => history.push(path)}
+              onClick={() => history.push({
+                pathname: path,
+                search: (path === 'transactions')
+                ? '?search=&dates%5Bstart%5D=2018-01-06T02%3A00%3A00.000Z&dates%5Bend%5D=2018-03-08T02%3A59%3A59.999Z&offset=1'
+                : '',
+              })}
             />
           ))}
         </SidebarLinks>

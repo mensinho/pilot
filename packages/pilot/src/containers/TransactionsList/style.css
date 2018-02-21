@@ -1,0 +1,66 @@
+.capitalize {
+  text-transform: capitalize;
+  display: flex;
+  align-items: center;
+}
+
+.centralizedItem {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.tableHeader {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  & > div:first-of-type button:not(:first-of-type) {
+    margin-left: 16px;
+  }
+}
+
+.dropdown {
+  display: flex;
+
+  & > :not(:first-of-type) {
+    margin-left: 16px;
+  }
+}
+
+.pagination {
+  display: flex;
+  margin-top: 16px;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.customTitle {
+  white-space: pre;
+
+  & strong {
+    color: #ff796f;
+  }
+}
+
+.verticalDivider {
+  height: 20px;
+  border: 1px dotted #aaa;
+  width: auto;
+  margin: 0 8px;
+}
+
+.tableButtons {
+  display: flex;
+  align-items: stretch;
+}
+
+.tableButtons span {
+  line-height: 28px;
+}
+
+.separator {
+  width: 1px;
+  margin: 0 10px;
+  border-left: 1px solid #bababa;
+}

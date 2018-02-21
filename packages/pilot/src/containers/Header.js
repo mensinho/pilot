@@ -14,6 +14,7 @@ import {
   HeaderTitle,
 } from 'former-kit'
 
+
 const HeaderContainer = ({
   avatar,
   username,
@@ -22,8 +23,14 @@ const HeaderContainer = ({
   <Header>
     <HeaderTitle>Transactions</HeaderTitle>
     <HeaderContent>
-      <HeaderLink icon={<Mail24 />} />
-      <HeaderLink icon={<Alert24 />} />
+      <HeaderLink
+        icon={<Mail24 />}
+        onClick={() => {}}
+      />
+      <HeaderLink
+        icon={<Alert24 />}
+        onClick={() => {}}
+      />
       <HeaderMenu
         onClick={onClickMenu}
       >
