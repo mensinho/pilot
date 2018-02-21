@@ -14,6 +14,7 @@ import {
   HeaderTitle,
 } from 'former-kit'
 
+
 const HeaderContainer = ({
   avatar,
   username,

@@ -2,11 +2,13 @@ import ChartBars32 from 'emblematic-icons/svg/ChartBars32.svg'
 import Wallet32 from 'emblematic-icons/svg/Wallet32.svg'
 import Home32 from 'emblematic-icons/svg/Home32.svg'
 import Report32 from 'emblematic-icons/svg/Report32.svg'
+import Transaction32 from 'emblematic-icons/svg/Transaction32.svg'
 
 import Home from '../Home'
 import Charts from '../Charts'
 import Table from '../Table'
 import Forms from '../Forms'
+import Transactions from '../Transactions'
 
 export default {
   home: {
@@ -32,5 +34,11 @@ export default {
     path: '/forms',
     component: Forms,
     icon: Report32,
+  },
+  transactions: {
+    title: 'Transactions',
+    path: '/transactions',
+    component: Transactions,
+    icon: Transaction32,
   },
 }
