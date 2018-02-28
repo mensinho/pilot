@@ -60,7 +60,11 @@ const SignUpForm = ({
 
 SignUpForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
-  t: PropTypes.func.isRequired,
+  t: PropTypes.func,
+}
+
+SignUpForm.defaultProps = {
+  t: t => t,
 }
 
 export default SignUpForm

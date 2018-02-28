@@ -58,7 +58,11 @@ RegisteredPresentationContainer.propTypes = {
   onLanguageChange: PropTypes.func.isRequired,
   selectedLanguage: PropTypes.string.isRequired,
   availableLanguages: PropTypes.arrayOf(PropTypes.string).isRequired,
-  t: PropTypes.func.isRequired,
+  t: PropTypes.func,
+}
+
+RegisteredPresentationContainer.defaultProps = {
+  t: t => t,
 }
 
 export default RegisteredPresentationContainer

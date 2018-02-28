@@ -38,7 +38,11 @@ const UnregisteredPresentationContainer = ({
 
 UnregisteredPresentationContainer.propTypes = {
   onBackToLogin: PropTypes.func.isRequired,
-  t: PropTypes.func.isRequired,
+  t: PropTypes.func,
+}
+
+UnregisteredPresentationContainer.defaultProps = {
+  t: t => t,
 }
 
 export default UnregisteredPresentationContainer

@@ -10,6 +10,7 @@ import {
 import styles from './style.css'
 
 const Account = ({
+  t,
   base,
   logo: Logo,
   primaryContent,
@@ -19,7 +20,7 @@ const Account = ({
     <LandingPrimarySection base={base}>
       <div className={styles.columnContainer}>
         <div className={styles.logo}>
-          <Logo height="200px" />
+          <Logo alt={t('landing.logo')} height="200px" />
         </div>
         {primaryContent}
       </div>
@@ -37,10 +38,12 @@ Account.propTypes = {
   logo: PropTypes.node.isRequired,
   primaryContent: PropTypes.node.isRequired,
   secondaryContent: PropTypes.node.isRequired,
+  t: PropTypes.func,
 }
 
 Account.defaultProps = {
   base: 'dark',
+  t: t => t,
 }
 
 export default Account

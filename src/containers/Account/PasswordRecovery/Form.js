@@ -49,7 +49,11 @@ const PasswordRecoveryForm = ({
 PasswordRecoveryForm.propTypes = {
   onBackToLogin: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
-  t: PropTypes.func.isRequired,
+  t: PropTypes.func,
+}
+
+PasswordRecoveryForm.defaultProps = {
+  t: t => t,
 }
 
 export default PasswordRecoveryForm

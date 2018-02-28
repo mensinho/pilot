@@ -34,7 +34,11 @@ const InvalidEmailError = ({
 
 InvalidEmailError.propTypes = {
   onBackToSignUp: PropTypes.func.isRequired,
-  t: PropTypes.func.isRequired,
+  t: PropTypes.func,
+}
+
+InvalidEmailError.defaultProps = {
+  t: t => t,
 }
 
 export default InvalidEmailError

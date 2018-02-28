@@ -34,7 +34,11 @@ const Confirmation = ({
 
 Confirmation.propTypes = {
   onBackToLogin: PropTypes.func.isRequired,
-  t: PropTypes.func.isRequired,
+  t: PropTypes.func,
+}
+
+Confirmation.defaultProps = {
+  t: t => t,
 }
 
 export default Confirmation

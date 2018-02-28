@@ -43,11 +43,11 @@ const enhance = compose(
 
 const AccountArea = ({ t, history: { location } }) => (
   <Account
+    t={t}
     logo={props => (
       <a href="https://openclipart.org/detail/270878/datacubes">
-        <img
+        <img //eslint-disable-line
           src="https://openclipart.org/download/270878/Datacubes.svg"
-          alt={t('landing.logo')}
           height="160px"
           {...props}
         />
