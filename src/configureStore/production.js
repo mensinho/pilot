@@ -5,7 +5,7 @@ import {
 
 import { createEpicMiddleware } from 'redux-observable'
 
-import { rootEpic, rootReducer } from './pages/actions'
+import { rootEpic, rootReducer } from '../pages/actions'
 
 export default function configureStore () {
   return createStore(

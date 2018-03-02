@@ -1,4 +1,5 @@
-import React from 'react'
+/* eslint-disable global-require */
+import React, { Fragment } from 'react'
 import {
   ThemeProvider,
 } from 'former-kit'
@@ -12,13 +13,22 @@ import { Provider as StateProvider } from 'react-redux'
 import configureStore from './configureStore'
 import Root from './pages/Root'
 
+let devTools = null
+if (process.env.NODE_ENV !== 'production') {
+  const DevTools = require('./DevTools').default
+  devTools = <DevTools />
+}
+
 const store = configureStore()
 
 const App = () => (
   <ThemeProvider theme={theme}>
     <StateProvider store={store}>
       <HashRouter>
-        <Root />
+        <Fragment>
+          <Root />
+          {devTools}
+        </Fragment>
       </HashRouter>
     </StateProvider>
   </ThemeProvider>
