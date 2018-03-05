@@ -2,11 +2,7 @@ import cases from 'jest-in-case'
 
 import {
   DateInput,
-<<<<<<< HEAD
-  SearchField,
-=======
   Input,
->>>>>>> transactions: add page
   Button,
   Tag,
   CardActions,
