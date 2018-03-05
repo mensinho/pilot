@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
 import { translate } from 'react-i18next'
 import { compose } from 'ramda'
-import { SingUpForm } from '../../../containers/Account/SignUp'
+import { SignUpForm } from '../../../containers/Account/SignUp'
 
 const enhanced = compose(
   translate(),
@@ -22,7 +22,7 @@ class SignUpPage extends PureComponent {
 
   render () {
     return (
-      <SingUpForm
+      <SignUpForm
         onSubmit={this.handleSubmit}
         t={this.props.t}
       />
