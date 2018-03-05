@@ -22,11 +22,7 @@
     "react-i18next": "7.3.6",
     "react-redux": "5.0.7",
     "react-router-dom": "4.2.2",
-<<<<<<< HEAD
-    "react-scripts-former-kit-dashboard": "0.1.0",
-=======
     "react-scripts-former-kit-dashboard": "0.1.1",
->>>>>>> transactions: add page
     "react-vanilla-form": "0.2.4",
     "recharts": "1.0.0-beta.10",
     "redux": "3.7.2",
