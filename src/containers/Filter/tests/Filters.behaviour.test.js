@@ -36,7 +36,7 @@ describe('Filters', () => {
           .first()
 
         expect(searchInput.props().value).toBe(expectedSearchValue)
-      }, afterClear.searchInputCase)
+      }, afterClear.getSearchInputCase())
 
       cases('should DateInput have the same value', ({
         component,
@@ -47,7 +47,7 @@ describe('Filters', () => {
           .first()
 
         expect(dateInput.props().dates).toBe(dates)
-      }, afterClear.dateInputCase)
+      }, afterClear.getDateInputCase())
 
       cases('should not have selected checkboxes', ({
         component,
@@ -63,14 +63,14 @@ describe('Filters', () => {
         toggleFilterOptions(component)
 
         expect(checkboxes).toEqual(selectedFilters)
-      }, afterClear.selectedCheckboxesCase)
+      }, afterClear.getSelectedCheckboxesCase())
 
       cases('should onChange be called with default values', ({
         onChange,
         defaultProps,
       }) => {
         expect(onChange).toBeCalledWith(defaultProps)
-      }, afterClear.onChangeCase)
+      }, afterClear.getOnChangeCase())
     })
 
     describe('before submit', () => {
@@ -83,7 +83,7 @@ describe('Filters', () => {
           .findWhere(node => node.is('button') && node.prop('type') === 'submit')
 
         expect(submitButton.props().disabled).toBe(expectedButtonDisabledState)
-      }, beforeSubmit.submitButtonDisabledCase)
+      }, beforeSubmit.getSubmitButtonDisabledCase())
 
       cases('should have submit button with correct relevance', ({
         component,
@@ -95,7 +95,7 @@ describe('Filters', () => {
           .last()
 
         expect(submitButton.props().relevance).toBe(buttonRelevance)
-      }, beforeSubmit.submitButtonRelevanceCase)
+      }, beforeSubmit.getSubmitButtonRelevanceCase())
 
       cases('should have reset button with correct relevance', ({
         component,
@@ -106,7 +106,7 @@ describe('Filters', () => {
           .findWhere(node => node.is(Button) && node.prop('type') !== 'submit')
 
         expect(resetButton.props().relevance).toBe(buttonRelevance)
-      }, beforeSubmit.resetButtonRelevanceCase)
+      }, beforeSubmit.getResetButtonRelevanceCase())
 
       cases('should have correct Tag components', ({
         component,
@@ -121,7 +121,7 @@ describe('Filters', () => {
           .map(tag => tag.label)
 
         expect(tags).toEqual(expectedTags)
-      }, beforeSubmit.correctTagCase)
+      }, beforeSubmit.getCorrectTagCase())
 
       cases('should DateInput value be the same as dates prop', ({ component, dates }) => {
         const dateInputProps = component
@@ -129,7 +129,7 @@ describe('Filters', () => {
           .props()
 
         expect(dateInputProps.dates).toBe(dates)
-      }, beforeSubmit.dateInputDatesCase)
+      }, beforeSubmit.getDateInputDatesCase())
 
       cases('should SearchInput value be the same as search prop', ({ component, searchValue }) => {
         const searchInput = component
@@ -137,7 +137,7 @@ describe('Filters', () => {
           .find('input')
 
         expect(searchInput.props().value).toBe(searchValue)
-      }, beforeSubmit.searchInputSearchCase)
+      }, beforeSubmit.getSearchInputSearchCase())
 
       cases('should onChange function be called with correct values', ({
         defaultProps,
@@ -150,7 +150,7 @@ describe('Filters', () => {
         } else {
           expect(onChange).not.toBeCalled()
         }
-      }, beforeSubmit.onChangeCase)
+      }, beforeSubmit.getOnChangeCase())
     })
 
     describe('after submit', () => {
@@ -162,7 +162,7 @@ describe('Filters', () => {
           .find(CardActions)
           .findWhere(node => node.is(Button) && node.prop('type') === 'submit')
         expect(submitButton.props().disabled).toBe(expectedButtonDisabledState)
-      }, afterSubmit.submitButtonDisabledCase)
+      }, afterSubmit.getSubmitButtonDisabledCase())
 
       cases('should have submit button with correct relevance', ({
         component,
@@ -173,7 +173,7 @@ describe('Filters', () => {
           .find(Button)
           .last()
         expect(submitButton.props().relevance).toBe(buttonRelevance)
-      }, afterSubmit.submitButtonRelevanceCase)
+      }, afterSubmit.getSubmitButtonRelevanceCase())
 
       cases('should have reset button with correct relevance', ({
         component,
@@ -183,7 +183,7 @@ describe('Filters', () => {
           .find(CardActions)
           .findWhere(node => node.is(Button) && node.prop('type') !== 'submit')
         expect(resetButton.props().relevance).toBe(buttonRelevance)
-      }, afterSubmit.resetButtonRelevanceCase)
+      }, afterSubmit.getResetButtonRelevanceCase())
 
       cases('should have correct Tag components', ({ component, selectedFilters }) => {
         const tags = component.find(Tag)
@@ -193,7 +193,7 @@ describe('Filters', () => {
           .map(tag => tag.label)
 
         expect(tags).toEqual(expectedTags)
-      }, afterSubmit.correctTagCase)
+      }, afterSubmit.getCorrectTagCase())
 
       cases('should DateInput value be the same as dates prop', ({
         component,
@@ -204,7 +204,7 @@ describe('Filters', () => {
           .props()
 
         expect(dateInputProps.dates).toBe(dates)
-      }, afterSubmit.dateInputDatesCase)
+      }, afterSubmit.getDateInputDatesCase())
 
       cases('should SearchInput value be the same as search prop', ({ component, searchValue }) => {
         const searchInput = component
@@ -212,7 +212,7 @@ describe('Filters', () => {
           .find('input')
 
         expect(searchInput.props().value).toBe(searchValue)
-      }, afterSubmit.searchInputSearchCase)
+      }, afterSubmit.getSearchInputSearchCase())
 
       cases('should onChange function be called with correct values', ({
         onChange,
@@ -225,7 +225,7 @@ describe('Filters', () => {
           search,
           dates,
         })
-      }, afterSubmit.onChangeCase)
+      }, afterSubmit.getOnChangeCase())
     })
   })
 })

@@ -14,7 +14,7 @@ import {
 } from './common'
 
 const beforeSubmit = {
-  submitButtonDisabledCase: [
+  getSubmitButtonDisabledCase: () => [
     {
       name: 'when DateInput changes',
       ...changeDateInput(),
@@ -42,7 +42,7 @@ const beforeSubmit = {
     },
   ],
 
-  submitButtonRelevanceCase: [
+  getSubmitButtonRelevanceCase: () => [
     {
       name: 'when DateInput changes',
       ...changeDateInput(),
@@ -70,7 +70,7 @@ const beforeSubmit = {
     },
   ],
 
-  resetButtonRelevanceCase: [
+  getResetButtonRelevanceCase: () => [
     {
       name: 'when DateInput changes',
       ...changeDateInput(),
@@ -98,7 +98,7 @@ const beforeSubmit = {
     },
   ],
 
-  correctTagCase: [
+  getCorrectTagCase: () => [
     {
       name: 'when DateInput changes',
       ...changeDateInput(),
@@ -121,7 +121,7 @@ const beforeSubmit = {
     },
   ],
 
-  dateInputDatesCase: [
+  getDateInputDatesCase: () =>[
     {
       name: 'when DateInput changes',
       ...changeDateInput(),
@@ -149,7 +149,7 @@ const beforeSubmit = {
     },
   ],
 
-  searchInputSearchCase: [
+  getSearchInputSearchCase: () => [
     {
       name: 'when DateInput changes',
       ...changeDateInput(),
@@ -177,7 +177,7 @@ const beforeSubmit = {
     },
   ],
 
-  onChangeCase: [
+  getOnChangeCase: () => [
     {
       name: 'when DateInput changes',
       ...changeDateInput(),

@@ -17,28 +17,28 @@ import {
 } from './common'
 
 const afterClear = {
-  searchInputCase: [
+  getSearchInputCase: () => [
     {
       name: 'when the filters are cleared',
       ...clearButtonEvent(),
       expectedSearchValue: '',
     },
   ],
-  dateInputCase: [
+  getDateInputCase: () => [
     {
       name: 'when the filters are cleared',
       ...clearButtonEvent(),
       dates: newDates,
     },
   ],
-  selectedCheckboxesCase: [
+  getSelectedCheckboxesCase: () => [
     {
       name: 'when the filters are cleared',
       ...clearButtonEvent(),
       selectedFilters: [],
     },
   ],
-  onChangeCase: [
+  getOnChangeCase: () => [
     {
       name: 'when the filters are cleared',
       ...clearButtonEvent(),
@@ -47,7 +47,7 @@ const afterClear = {
 }
 
 const afterSubmit = {
-  submitButtonDisabledCase: [
+  getSubmitButtonDisabledCase: () => [
     {
       name: 'when DateInput changes and the form is submited',
       ...submitDateInput(),
@@ -75,7 +75,7 @@ const afterSubmit = {
     },
   ],
 
-  submitButtonRelevanceCase: [
+  getSubmitButtonRelevanceCase: () => [
     {
       name: 'when DateInput changes and the form is submited',
       ...submitDateInput(),
@@ -103,7 +103,7 @@ const afterSubmit = {
     },
   ],
 
-  resetButtonRelevanceCase: [
+  getResetButtonRelevanceCase: () => [
     {
       name: 'when DateInput changes and the form is submited',
       ...submitDateInput(),
@@ -131,7 +131,7 @@ const afterSubmit = {
     },
   ],
 
-  correctTagCase: [
+  getCorrectTagCase: () => [
     {
       name: 'when DateInput changes and the form is submited',
       ...submitDateInput(),
@@ -154,7 +154,7 @@ const afterSubmit = {
     },
   ],
 
-  dateInputDatesCase: [
+  getDateInputDatesCase: () => [
     {
       name: 'when DateInput changes and the form is submited',
       ...submitDateInput(),
@@ -182,7 +182,7 @@ const afterSubmit = {
     },
   ],
 
-  searchInputSearchCase: [
+  getSearchInputSearchCase: () => [
     {
       name: 'when DateInput changes and the form is submited',
       ...submitDateInput(),
@@ -210,7 +210,7 @@ const afterSubmit = {
     },
   ],
 
-  onChangeCase: [
+  getOnChangeCase: () => [
     {
       name: 'when DateInput changes and the form is submited',
       ...submitDateInput(),
