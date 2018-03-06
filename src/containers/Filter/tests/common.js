@@ -97,6 +97,7 @@ const createComponents = ({
     onChange,
     stateComponent,
     component,
+    getComponent: () => stateComponent.find(Filters).first(),
   }
 }
 
@@ -134,13 +135,15 @@ const getCheckboxGroups = component =>
 
 const getCheckboxes = component =>
   getCheckboxGroups(component)
-    .find(Checkbox)
+    .find('input[type="checkbox"]')
 
 const getCheckedCheckboxes = component =>
   getCheckboxGroups(component)
-    .findWhere(node =>
-      node.is(Checkbox) &&
-      node.props().checked
+    .findWhere(node => (
+        node.length > 0 &&
+        node.is('input[type="checkbox"]') &&
+        node.props().checked
+      )
     )
 
 export {

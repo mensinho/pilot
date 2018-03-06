@@ -80,7 +80,7 @@ describe('Filters', () => {
       }) => {
         const submitButton = component
           .find(CardActions)
-          .findWhere(node => node.is(Button) && node.prop('type') === 'submit')
+          .findWhere(node => node.is('button') && node.prop('type') === 'submit')
 
         expect(submitButton.props().disabled).toBe(expectedButtonDisabledState)
       }, beforeSubmit.submitButtonDisabledCase)
@@ -113,8 +113,9 @@ describe('Filters', () => {
         selectedFilters,
       }) => {
         const tags = component.find(Tag)
-          .map(node => node.props().children)
-
+          .map(node => {
+            return node.props().children
+          })
 
         const expectedTags = compileTags(filterOptions, selectedFilters)
           .map(tag => tag.label)

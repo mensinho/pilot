@@ -73,6 +73,8 @@ class Filters extends Component {
     this.setState({
       collapsed: !this.state.collapsed,
     })
+
+    console.log(this.state.collapsed)
   }
 
   handleDateInputChange (selectedDate) {

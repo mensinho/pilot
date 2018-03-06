@@ -20,20 +20,24 @@ import {
 } from './common'
 
 const changeDateInput = () => {
-  const { onChange, component } = createComponents()
+  const { onChange, getComponent, stateComponent } = createComponents()
+  const component = getComponent()
   const dateInput = component.find(DateInput).first()
 
   dateInput.props().onChange(newDates)
 
+  stateComponent.update()
+
   return {
     onChange,
-    component,
+    component: getComponent(),
     selectedFilters,
   }
 }
 
 const changeSearchInput = () => {
-  const { onChange, component } = createComponents()
+  const { onChange, getComponent, stateComponent } = createComponents()
+  const component = getComponent()
   const searchInput = component.find(Input).first()
 
   searchInput
@@ -44,28 +48,35 @@ const changeSearchInput = () => {
       },
     })
 
+  stateComponent.update()
+
   return {
     onChange,
-    component,
+    component: getComponent(),
     selectedFilters,
   }
 }
 
-const changeCheckboxes = ({ component, onChange }) => {
+const changeCheckboxes = ({ getComponent, stateComponent, onChange }) => {
+  let component = getComponent()
   // expand filters section
-  toggleFilterOptions(component)
+  toggleFilterOptions(stateComponent)
 
-  getCheckboxes(component).forEach(toggleCheckboxes(filterOptionsValues))
+  getCheckboxes(stateComponent).forEach(toggleCheckboxes(filterOptionsValues))
 
-  const finalSelectedChecks = getCheckedCheckboxes(component)
-    .map(node => node.props().value)
+  const finalSelectedChecks = getCheckedCheckboxes(stateComponent)
+
+
+  finalSelectedChecks.map(node => node.props().value)
 
   // collapse filters section
   toggleFilterOptions(component)
 
+  stateComponent.update()
+
   return {
     onChange,
-    component,
+    component: getComponent(),
     selectedFilters: finalSelectedChecks,
   }
 }
@@ -81,21 +92,24 @@ const uncheckAllCheckboxes = () =>
 const changeAllFilters = () => {
   const {
     onChange,
-    component,
+    getComponent,
+    stateComponent,
   } = createComponents()
+  const component = getComponent()
 
   const clearButton = component
     .find(CardActions)
     .findWhere(node => node.is(Button) && node.props().type !== 'submit')
+
   clearButton.simulate('click')
-  const defaultProps = component.props()
+
+  const defaultProps = getComponent().props()
 
   // expand filters section
-  component
-    .find(CardSection)
-    .find('[role="button"]')
-    .simulate('click')
-  const checkboxGroups = getCheckboxGroups(component)
+  toggleFilterOptions(stateComponent)
+
+  const checkboxGroups = getCheckboxGroups(stateComponent)
+
   const checkedFiltersValues = checkboxGroups
     .map(node => node
       .find('input')
@@ -104,6 +118,7 @@ const changeAllFilters = () => {
       .props()
       .value
     )
+
   const searchInput = component.find(Input).first()
   searchInput
     .find('input')
@@ -116,14 +131,13 @@ const changeAllFilters = () => {
   dateInput.props().onChange(newDates)
 
   // colapse filters section
-  component
-    .find(CardSection)
-    .find('[role="button"]')
-    .simulate('click')
+  toggleFilterOptions(stateComponent)
+
+  stateComponent.update()
 
   return {
     onChange,
-    component,
+    component: getComponent(),
     clearButton,
     defaultProps,
     checkboxGroups,

@@ -21,8 +21,10 @@ import {
 const clearButtonEvent = () => {
   const {
     onChange,
-    component,
+    getComponent,
   } = createComponents({ dates: newDates })
+
+  const component = getComponent()
 
   const clearButton = component
     .find(CardActions)
@@ -39,14 +41,15 @@ const clearButtonEvent = () => {
 
   return {
     onChange,
-    component,
+    component: getComponent(),
     clearButton,
     defaultProps,
   }
 }
 
 const submitDateInput = () => {
-  const { onChange, component } = createComponents()
+  const { onChange, getComponent } = createComponents()
+  const component = getComponent()
   const dateInput = component.find(DateInput).first()
 
   dateInput.props().onChange(newDates)
@@ -56,7 +59,7 @@ const submitDateInput = () => {
 
   return {
     onChange,
-    component,
+    component: getComponent(),
     dateInput,
     selectedFilters,
   }

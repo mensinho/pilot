@@ -89,7 +89,7 @@ describe('Filters', () => {
       const filterGroups = component.find(CheckboxGroup)
 
       const selectedCheckboxFilters = filterGroups
-        .findWhere(node => 
+        .findWhere(node =>
           node.find('input') && node.find('input').props().checked === true
         )
 
