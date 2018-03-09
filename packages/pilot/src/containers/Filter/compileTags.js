@@ -5,11 +5,15 @@ import {
   flatten,
   head,
   innerJoin,
+  isEmpty,
+  keys,
   last,
   map,
+  not,
   objOf,
   pipe,
   prop,
+  values,
 } from 'ramda'
 
 // compileTags(options, values)
@@ -30,4 +34,12 @@ const compileTags = pipe(
   apply(innerJoin(eqBy(prop('value'))))
 )
 
-export default compileTags
+const hasKeys = pipe(keys, isEmpty, not)
+
+const getValues = pipe(values, flatten)
+
+export {
+  compileTags,
+  getValues,
+  hasKeys,
+}

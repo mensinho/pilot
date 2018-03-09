@@ -35,8 +35,13 @@ import {
   pick,
 } from 'ramda'
 
-import compileTags from './compileTags'
+import {
+  compileTags,
+  getValues,
+  hasKeys,
+} from './compileTags'
 import style from './style.css'
+
 
 class Filters extends Component {
   constructor (props) {
@@ -221,20 +226,18 @@ class Filters extends Component {
       collapsed,
       values,
     } = this.state
-
     const {
       options,
     } = this.props
-
-    if (collapsed && values.length > 0) {
-      const tags = compileTags(options, values)
+    if (collapsed && hasKeys(values)) {
+      const tags = compileTags(options, getValues(values))
 
       return (
         <div>
           <div className={style.selectedOptionsTitle}>
-            Opções selecionadas
+            Opções selecionadas:
           </div>
-          <div className={style.selectedOptionsTag}>
+          <div className={style.selectedOptionsTags}>
             {tags.map(({ value, label }) => (
               <Tag key={value}>
                 {label}
