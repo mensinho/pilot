@@ -35,6 +35,18 @@ import Table from './Table'
 
 import currency from '../../helpers/formatCurrency'
 
+const renderDateSelected = ({ start, end }) => {
+  if (moment(start).isSame(end)) {
+    return 'Hoje'
+  }
+
+  if (!start && !end) {
+    return 'todo o período'
+  }
+
+  return `${moment(start).format('DD/MM/YYYY')} até ${moment(end).format('DD/MM/YYYY')}`
+}
+
 const TransactionsList = ({
   collapsed,
   columns,
@@ -88,7 +100,7 @@ const TransactionsList = ({
               title={
                 <h2 className={style.customTitle}>
                   <IconTransactions width={16} height={16} />
-                  Resumo: <strong>hoje</strong>
+                  Resumo de: <strong>{renderDateSelected(dates)}</strong>
                 </h2>
               }
               subtitle={
