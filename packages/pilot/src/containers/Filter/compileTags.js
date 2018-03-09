@@ -27,6 +27,7 @@ const compileTags = pipe(
     ),
     pipe(
       last,
+      values,
       flatten,
       map(objOf('value'))
     ),
@@ -34,12 +35,7 @@ const compileTags = pipe(
   apply(innerJoin(eqBy(prop('value'))))
 )
 
-const hasKeys = pipe(keys, isEmpty, not)
+const hasTags = pipe(keys, isEmpty, not)
 
-const getValues = pipe(values, flatten)
-
-export {
-  compileTags,
-  getValues,
-  hasKeys,
-}
+export { hasTags }
+export default compileTags
