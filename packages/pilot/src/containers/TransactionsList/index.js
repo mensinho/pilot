@@ -132,11 +132,13 @@ const TransactionsList = ({
                 title="TABELA DE TRANSAÇÕES"
                 subtitle={
                   <div className={style.tableButtons}>
-                    <Button fill="clean">
+                    <Button
+                      fill="clean"
+                      disabled={loading}
+                    >
                       <IconDownload
                         width={16}
                         height={16}
-                        disabled={loading}
                       />
                       Exportar
                     </Button>
