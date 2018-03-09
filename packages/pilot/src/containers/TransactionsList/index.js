@@ -137,11 +137,13 @@ const TransactionsList = ({
                     <Button
                       fill="clean"
                       disabled={loading}
+                      icon={
+                        <IconDownload
+                          width={16}
+                          height={16}
+                        />
+                      }
                     >
-                      <IconDownload
-                        width={16}
-                        height={16}
-                      />
                       Exportar
                     </Button>
                     <div className={style.separator} />
