@@ -68,6 +68,7 @@ const TransactionsList = ({
   handlePageChange,
   data,
   loading,
+  selectedPage,
 }) => (
   <Grid>
     <Row>
@@ -160,6 +161,7 @@ const TransactionsList = ({
                   handlePageChange={handlePageChange}
                   handlePageCountChange={handlePageCountChange}
                   loading={loading}
+                  selectedPage={selectedPage}
                 />
               </CardSection>
             </CardContent>
@@ -196,6 +198,7 @@ TransactionsList.propTypes = {
   })).isRequired,
   values: object, // eslint-disable-line
   search: string,
+  selectedPage: number,
   dates: shape({
     start: instanceOf(moment),
     end: instanceOf(moment),
@@ -225,6 +228,7 @@ TransactionsList.defaultProps = {
     start: moment(),
     end: moment(),
   },
+  selectedPage: 15,
 }
 
 export default TransactionsList

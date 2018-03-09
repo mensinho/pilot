@@ -39,6 +39,14 @@ const buttons = [
   },
 ]
 
+const renderPlaceholder = (selectedPage) => {
+  if (selectedPage) {
+    return `${selectedPage.toString()} items per page`
+  }
+
+  return 'Items per page'
+}
+
 class TableContainer extends Component {
   constructor (props) {
     super(props)
@@ -67,9 +75,7 @@ class TableContainer extends Component {
 
   handlePageCountChange (event) {
     const { value } = event.target
-    this.setState({
-      selected: value,
-    }, () => this.props.handlePageCountChange(value))
+    this.props.handlePageCountChange(value)
   }
 
   render () {
@@ -86,6 +92,7 @@ class TableContainer extends Component {
       pagination,
       handlePageChange,
       loading,
+      selectedPage,
     } = this.props
 
     const {
@@ -114,12 +121,12 @@ class TableContainer extends Component {
 
           <div className={style.dropdown}>
             <Dropdown
-              options={[2, 5, 10, 30, 40].map(i =>
-                ({ name: `${i} items per page`, value: i }))
+              options={[15, 30, 60, 100].map(i =>
+                ({ name: `${i} items per page`, value: `${i}` }))
               }
               name="count"
-              value={this.state.selected}
-              placeholder="Items per page"
+              value={selectedPage.toString()}
+              placeholder={renderPlaceholder(selectedPage)}
               onChange={this.handlePageCountChange}
               disabled={loading}
             />
@@ -175,6 +182,7 @@ TableContainer.propTypes = {
     total: number,
   }).isRequired,
   loading: bool,
+  selectedPage: number,
   columns: arrayOf(object), // eslint-disable-line
   rows: arrayOf(object), // eslint-disable-line
   handlePageChange: func.isRequired, // eslint-disable-line
@@ -192,6 +200,7 @@ TableContainer.defaultProps = {
   order: 'ascending',
   onRowClick: () => undefined,
   loading: false,
+  selectedPage: 15,
 }
 
 export default TableContainer

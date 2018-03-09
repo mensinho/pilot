@@ -197,7 +197,7 @@ class Transactions extends React.Component {
         },
         filters: {},
         offset: 1,
-        count: 2,
+        count: 15,
         sort: {},
       },
       result: {
@@ -451,6 +451,7 @@ class Transactions extends React.Component {
         dates,
         filters,
         sort,
+        count,
       },
       result: {
         total,
@@ -481,6 +482,7 @@ class Transactions extends React.Component {
         handlePageCountChange={this.handlePageCountChange}
         data={chart.dataset}
         loading={loading}
+        selectedPage={count}
       />
     )
   }
