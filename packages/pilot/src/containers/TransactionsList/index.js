@@ -14,11 +14,12 @@ import IconBalance from 'emblematic-icons/svg/Balance32.svg'
 import IconDownload from 'emblematic-icons/svg/Download32.svg'
 import IconChartsBars from 'emblematic-icons/svg/ChartBars32.svg'
 import IconTransactions from 'emblematic-icons/svg/Transaction32.svg'
+import IconInfo from 'emblematic-icons/svg/Info32.svg'
 import {
+  Alert,
   Grid,
   Row,
   Col,
-
   Card,
   CardContent,
   CardTitle,
@@ -88,14 +89,14 @@ const TransactionsList = ({
           loading={loading}
         />
       </Col>
-
-      {rows.length > 0 &&
-        <Col
-          palm={12}
-          tablet={12}
-          desk={12}
-          tv={12}
-        >
+      <Col
+        palm={12}
+        tablet={12}
+        desk={12}
+        tv={12}
+      >
+        {
+          rows.length > 0 &&
           <Card>
             <CardTitle
               title={
@@ -166,8 +167,23 @@ const TransactionsList = ({
               </CardSection>
             </CardContent>
           </Card>
-        </Col>
-      }
+        }
+        {
+          rows.length <= 0 &&
+          !loading &&
+          <div className={style.noResultAlert}>
+            <Alert
+              type="info"
+              icon={<IconInfo height={16} width={16} />}
+            >
+              <p>
+                <strong>Não foram encontrados resultados para essa busca.</strong>
+                Tente novamente com outros filtros.
+              </p>
+            </Alert>
+          </div>
+        }
+      </Col>
     </Row>
   </Grid>
 )

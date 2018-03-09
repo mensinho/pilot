@@ -64,3 +64,11 @@
   margin: 0 10px;
   border-left: 1px solid #bababa;
 }
+
+.noResultAlert {
+  flex: 1;
+  & > * {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
