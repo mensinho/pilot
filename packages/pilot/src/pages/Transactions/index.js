@@ -185,21 +185,8 @@ class Transactions extends React.Component {
     super(props)
 
     this.state = {
-      loading: true,
       columns: columnsDefault,
-      orderColumn: sortedColumn,
       collapsed: true,
-      query: {
-        search: '',
-        dates: {
-          start: moment(new Date()).subtract(30, 'days'),
-          end: moment(new Date()),
-        },
-        filters: {},
-        offset: 1,
-        count: 15,
-        sort: {},
-      },
       result: {
         total: {},
         list: {
@@ -208,10 +195,6 @@ class Transactions extends React.Component {
         chart: {
           dataset: [],
         },
-      },
-      pagination: {
-        offset: 1,
-        total: 0,
       },
     }
 
@@ -303,6 +286,10 @@ class Transactions extends React.Component {
   }
 
   handlePageCountChange (count) {
+    // chamar redux 'request'
+    // fazemos a request http depois a request redux
+    // chama redux atualizando pagination e loading apenas
+
     this.setState({
       query: {
         ...this.state.query,
