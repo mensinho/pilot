@@ -12,15 +12,25 @@ jobs:
 
       - restore_cache:
           keys:
-          - dependencies-{{ checksum "package.json" }}
+          - dependencies-{{ checksum "yarn.lock" }}
           - dependencies-
 
+      - run: yarn
+
       - run: |
-          yarn
-          yarn build
+          cd packages/pilot
           yarn test
+          yarn build
+
+      - run: |
+          cd packages/cockpit
+          yarn lint
+          yarn test
+          yarn build
 
       - save_cache:
           paths:
             - node_modules
-          key: dependencies-{{ checksum "package.json" }}
+            - packages/pilot/node_modules
+            - packages/cockpit/node_modules
+          key: dependencies-{{ checksum "yarn.lock" }}
