@@ -1,7 +1,6 @@
-import { createAction } from 'redux-action'
+import { createAction } from 'redux-actions'
 
-export { defaul } from './reducer'
-export { default as epic } from './epic'
+export { default } from './reducer'
 
 export const SEARCH_REQUEST = 'pilot/transactions/SEARCH_REQUEST'
 export const requestSearch = createAction(SEARCH_REQUEST)

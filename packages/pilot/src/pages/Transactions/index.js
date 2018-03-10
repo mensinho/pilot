@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import moment from 'moment'
 import cockpit from 'cockpit'
 import qs from 'qs'
+import { withRouter } from 'react-router-dom'
 
 import { connect } from 'react-redux'
 
@@ -10,16 +11,19 @@ import {
   anyPass,
   allPass,
   compose,
+  findIndex,
   nth,
   path,
   pipe,
   prop,
+  propEq,
   propSatisfies,
   pick,
   tail,
   ifElse,
   isNil,
   isEmpty,
+  identity,
   always,
   props as propsR,
   juxt,
@@ -31,6 +35,11 @@ import {
   when,
   has,
 } from 'ramda'
+
+import {
+  requestSearch,
+  receiveSearch,
+} from './actions'
 
 import TransactionsList from '../../containers/TransactionsList'
 import renderCardBrand from '../../containers/TransactionsList/renderCardBrand'
@@ -52,12 +61,31 @@ const convertPaymentValue = property => pipe(
 
 const mapStateToProps = ({
   account: { client },
-}) => ({ client })
+  search,
+}) => ({ client, search })
+
+const mapDispatchToProps = dispatch => ({
+  onRequestSearch: () => {
+    dispatch(requestSearch())
+  },
+
+  onReceiveSearch: ({
+    query,
+    pagination,
+  }) => {
+    dispatch(receiveSearch({
+      query,
+      pagination,
+    }))
+  },
+})
 
 const enhanced = compose(
   connect(
-    mapStateToProps
-  )
+    mapStateToProps,
+    mapDispatchToProps
+  ),
+  withRouter
 )
 
 const columnsDefault = [
@@ -131,8 +159,9 @@ const columnsDefault = [
   { title: 'Boleto Link', accessor: ['boleto', 'url'], orderable: true },
 ]
 
-const sortedColumn = columnsDefault.findIndex(c =>
-  c.accessor.includes('created_at')
+const getOrderColumn = field => findIndex(
+  propEq('accessor', field),
+  columnsDefault
 )
 
 const getColumnAccessor = index => pipe(
@@ -205,6 +234,7 @@ class Transactions extends React.Component {
     this.handlePageCountChange = this.handlePageCountChange.bind(this)
 
     this.updateUrl = this.updateUrl.bind(this)
+    this.requestData = this.requestData.bind(this)
 
     this.cockpitPg = cockpit(props.client)
   }
@@ -214,7 +244,7 @@ class Transactions extends React.Component {
 
     const chooseQuery = ifElse(
       anyPass([isNil, isEmpty]),
-      always(this.state.query),
+      always(this.props.search.query),
       pipe(tail, qs.parse)
     )
 
@@ -222,58 +252,38 @@ class Transactions extends React.Component {
 
     const query = merge(chosenQuery, parseDatesToMoment(chosenQuery))
 
-    this.cockpitPg
-      .transactions
-      .search(query)
-      .then((res) => {
-        this.updateUrl(query)
-
-        this.setState({
-          ...res,
-          loading: false,
-          pagination: {
-            offset: 1,
-            total: Math.ceil(
-              res.result.total.count / this.state.query.count
-            ),
-          },
-        })
-      })
+    this.requestData(query)
   }
 
   componentWillReceiveProps (nextProps) {
-    const search = tail(nextProps.location.search)
-    const queryState = this.state.query
+    const { search } = nextProps.location
 
-    const queryStateStr = qs.stringify(
-      merge(queryState, parseDatesToISO(queryState.dates))
+    const getQuery = pipe(
+      tail,
+      qs.parse,
+      juxt([identity, parseDatesToMoment]),
+      mergeAll
     )
 
-    if (search !== queryStateStr) {
-      const queryUrl = qs.parse(search)
-      const finalQueryUrl = merge(queryUrl, parseDatesToMoment(queryUrl))
-
-      this.setState({
-        query: finalQueryUrl,
-        loading: true,
-      }, () => (
-        this.cockpitPg
-          .transactions
-          .search(finalQueryUrl)
-          .then(res => (
-            this.setState({
-              ...res,
-              loading: false,
-              pagination: {
-                offset: 1,
-                total: Math.ceil(
-                  res.result.total.count / this.state.query.count
-                ),
-              },
-            })
-          ))
-      ))
+    if (search !== this.props.location.search) {
+      const query = getQuery(search)
+      this.requestData(query)
     }
+  }
+
+  requestData (query) {
+    return this.cockpitPg
+      .transactions
+      .search(query)
+      .then((res) => {
+        this.setState({
+          result: res.result,
+        })
+
+        this.props.onReceiveSearch({
+          query,
+        })
+      })
   }
 
   updateUrl (query) {
@@ -286,71 +296,32 @@ class Transactions extends React.Component {
   }
 
   handlePageCountChange (count) {
-    // chamar redux 'request'
-    // fazemos a request http depois a request redux
-    // chama redux atualizando pagination e loading apenas
+    this.props.onRequestSearch()
 
-    this.setState({
-      query: {
-        ...this.state.query,
-        offset: 1,
-        count,
-      },
-      loading: true,
-    }, () => (
-      this.cockpitPg
-        .transactions
-        .search(this.state.query)
-        .then((res) => {
-          this.updateUrl(this.state.query)
+    const query = {
+      ...this.props.search.query,
+      offset: 1,
+      count,
+    }
 
-          this.setState({
-            ...res,
-            loading: false,
-            pagination: {
-              offset: 1,
-              total: Math.ceil(
-                res.result.total.count / this.state.query.count
-              ),
-            },
-          })
-        })
-    ))
+    this.requestData(query)
   }
 
   handleOrderChange (index, order) {
+    this.props.onRequestSearch()
+
     const getAccessor = getColumnAccessor(index)
 
-    this.setState({
-      loading: true,
-      orderColumn: index,
-      query: {
-        ...this.state.query,
-        sort: {
-          field: getAccessor(columnsDefault),
-          order,
-        },
-        offset: 1,
+    const query = {
+      ...this.props.search.query,
+      sort: {
+        field: getAccessor(columnsDefault),
+        order,
       },
-    }, () => (
-      this.cockpitPg
-        .transactions
-        .search(this.state.query)
-        .then((res) => {
-          this.updateUrl(this.state.query)
+      offset: 1,
+    }
 
-          this.setState({
-            ...res,
-            pagination: {
-              offset: 1,
-              total: Math.ceil(
-                res.result.total.count / this.state.query.count
-              ),
-            },
-            loading: false,
-          })
-        })
-    ))
+    this.requestData(query)
   }
 
   handleFilterChange (filters) {
@@ -360,62 +331,28 @@ class Transactions extends React.Component {
       values,
     } = filters
 
-    this.setState({
-      loading: true,
-      query: {
-        ...this.state.query,
-        search,
-        dates,
-        filters: values,
-        offset: 1,
-      },
-    }, () => (
-      this.cockpitPg
-        .transactions
-        .search(this.state.query)
-        .then((res) => {
-          this.updateUrl(this.state.query)
+    this.props.onRequestSearch()
 
-          this.setState({
-            ...res,
-            loading: false,
-            pagination: {
-              offset: 1,
-              total: Math.ceil(
-                res.result.total.count / this.state.query.count
-              ),
-            },
-          })
-        })
-    ))
+    const query = {
+      ...this.props.search.query,
+      search,
+      dates,
+      filters: values,
+      offset: 1,
+    }
+
+    this.requestData(query)
   }
 
   handlePageChange (page) {
-    const { pagination } = this.state
+    this.props.onRequestSearch()
 
-    this.setState({
-      loading: true,
-      pagination: {
-        ...pagination,
-        offset: page,
-      },
-      query: {
-        ...this.state.query,
-        offset: page,
-      },
-    }, () => (
-      this.cockpitPg
-        .transactions
-        .search(this.state.query)
-        .then((res) => {
-          this.updateUrl(this.state.query)
+    const query = {
+      ...this.props.search.query,
+      offset: page,
+    }
 
-          this.setState({
-            ...res,
-            loading: false,
-          })
-        })
-    ))
+    this.requestData(query)
   }
 
   handleChartsCollapse () {
@@ -428,24 +365,35 @@ class Transactions extends React.Component {
 
   render () {
     const {
-      loading,
       collapsed,
       columns,
-      orderColumn,
-      pagination,
-      query: {
-        search,
-        dates,
-        filters,
-        sort,
-        count,
-      },
       result: {
         total,
         list,
         chart,
       },
     } = this.state
+
+    const {
+      loading,
+      query: {
+        search,
+        dates,
+        filters,
+        sort,
+        count,
+        offset,
+      },
+    } = this.props.search
+
+    const orderColumn = getOrderColumn(sort.field)
+
+    const pagination = {
+      offset,
+      total: Math.ceil(
+        total.count / count
+      ),
+    }
 
     return (
       <TransactionsList
@@ -483,6 +431,29 @@ Transactions.propTypes = {
   }).isRequired,
   history: PropTypes.shape({
     replace: PropTypes.func,
+  }).isRequired,
+  onReceiveSearch: PropTypes.func.isRequired,
+  onRequestSearch: PropTypes.func.isRequired,
+  search: PropTypes.shape({
+    loading: PropTypes.bool.isRequired,
+    pagination: PropTypes.shape({
+      offset: PropTypes.number.isRequired,
+      total: PropTypes.number.isRequired,
+    }).isRequired,
+    query: PropTypes.shape({
+      search: PropTypes.string,
+      dates: PropTypes.shape({
+        start: PropTypes.instanceOf(moment),
+        end: PropTypes.instanceOf(moment),
+      }),
+      filters: PropTypes.shape({}),
+      offset: PropTypes.number.isRequired,
+      count: PropTypes.number.isRequired,
+      sort: PropTypes.shape({
+        field: PropTypes.arrayOf(PropTypes.string),
+        order: PropTypes.string,
+      }),
+    }).isRequired,
   }).isRequired,
 }
 

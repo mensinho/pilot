@@ -1,3 +1,8 @@
+import moment from 'moment'
+import {
+  mergeDeepWith,
+  is,
+} from 'ramda'
 import {
   SEARCH_REQUEST,
   SEARCH_RECEIVE,
@@ -16,8 +21,39 @@ const initialState = {
     count: 15,
     sort: {},
   },
-  pagination: {
-    offset: 1,
-    total: 0,
-  },
+}
+
+export default function searchReducer (state = initialState, action) {
+  switch (action.type) {
+    case SEARCH_REQUEST: {
+      return {
+        ...state,
+        loading: true,
+      }
+    }
+
+    case SEARCH_RECEIVE: {
+      const {
+        payload: {
+          query,
+        },
+      } = action
+
+      const mergeNotAMoment = (left, right) => {
+        if (is(moment, right)) {
+          return right
+        }
+
+        return left
+      }
+
+      return mergeDeepWith(mergeNotAMoment, state, {
+        loading: false,
+        query,
+      })
+    }
+
+    default:
+      return initialState
+  }
 }
