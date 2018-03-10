@@ -1,12 +1,30 @@
 import moment from 'moment'
+
 import {
-  mergeDeepWith,
+  mergeWith,
   is,
 } from 'ramda'
+
 import {
   SEARCH_REQUEST,
   SEARCH_RECEIVE,
 } from '.'
+
+const mergeMomentAware = (a, b) => {
+  if (is(moment, a) && is(moment, b)) {
+    return b
+  }
+
+  if (is(Array, a) && is(Array, b)) {
+    return b
+  }
+
+  if (is(Object, a) && is(Object, b)) {
+    return mergeWith(mergeMomentAware, a, b)
+  }
+
+  return b
+}
 
 const initialState = {
   loading: true,
@@ -39,15 +57,7 @@ export default function searchReducer (state = initialState, action) {
         },
       } = action
 
-      const mergeNotAMoment = (left, right) => {
-        if (is(moment, right)) {
-          return right
-        }
-
-        return left
-      }
-
-      return mergeDeepWith(mergeNotAMoment, state, {
+      return mergeMomentAware(state, {
         loading: false,
         query,
       })

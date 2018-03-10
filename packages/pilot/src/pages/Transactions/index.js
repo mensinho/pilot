@@ -11,6 +11,7 @@ import {
   anyPass,
   allPass,
   compose,
+  equals,
   findIndex,
   nth,
   path,
@@ -290,7 +291,6 @@ class Transactions extends React.Component {
     const newQuery = merge(query, parseDatesToISO(query.dates))
 
     this.props.history.replace({
-      pathname: this.props.location.pathname,
       search: qs.stringify(newQuery),
     })
   }
