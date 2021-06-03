@@ -3457,13 +3457,14 @@ hoek@4.x.x:
   version "4.2.1"
   resolved "https://registry.yarnpkg.com/hoek/-/hoek-4.2.1.tgz#9634502aa12c445dd5a7c5734b572bb8738aacbb"
 
-hoist-non-react-statics@2.3.1:
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-2.3.1.tgz#343db84c6018c650778898240135a1420ee22ce0"
-
 hoist-non-react-statics@^2.1.1, hoist-non-react-statics@^2.3.0, hoist-non-react-statics@^2.5.0:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-2.5.0.tgz#d2ca2dfc19c5a91c5a6615ce8e564ef0347e2a40"
+
+hoist-non-react-statics@^2.3.1:
+  version "2.5.5"
+  resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-2.5.5.tgz#c5903cf409c0dfd908f388e619d86b9c1174cb47"
+  integrity sha512-rqcy4pJo55FTTLWt+bU8ukscqHeE/e9KWvsOW2b/a3afxQZhwkQdT1rPPCJ0rYXdj4vNcasY8zHTH+jF/qStxw==
 
 home-or-tmp@^2.0.0:
   version "2.0.0"
@@ -6422,11 +6423,12 @@ react-error-overlay@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-4.0.0.tgz#d198408a85b4070937a98667f500c832f86bd5d4"
 
-react-i18next@^7.3.6:
-  version "7.4.0"
-  resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-7.4.0.tgz#07a336e49fc8f2599d08136d73134e3dc4830b49"
+react-i18next@^7.13.0:
+  version "7.13.0"
+  resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-7.13.0.tgz#a6f64fd749215ec70400f90da6cbde2a9c5b1588"
+  integrity sha512-35M+MZFPqHwVIas7tXWQKFrf+ozCJukNplUTiGqL8mczSk+VRBsHxxXuuQKRkz/4CcWkONGWbp/AzxfM6wZncg==
   dependencies:
-    hoist-non-react-statics "2.3.1"
+    hoist-non-react-statics "^2.3.1"
     html-parse-stringify2 "2.0.1"
     prop-types "^15.6.0"
 
