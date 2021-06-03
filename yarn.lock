@@ -2324,9 +2324,10 @@ emblematic-icons@0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/emblematic-icons/-/emblematic-icons-0.1.1.tgz#697010326b33da9e499286f570c7fabe2aa54fcb"
 
-emblematic-icons@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/emblematic-icons/-/emblematic-icons-0.2.0.tgz#f4851d1ac098752d0cdfb8d91f81e67629374076"
+emblematic-icons@^0.14.1:
+  version "0.14.3"
+  resolved "https://registry.yarnpkg.com/emblematic-icons/-/emblematic-icons-0.14.3.tgz#da29bba99665cc4ce95db4d604beac226b3b6276"
+  integrity sha512-N8YZerU4QXLh6GXbv5cmC8HDrLDuPvdX4M9+4kAlaEo88EOchuUSsxPRgl4WgUO507a6UyQW77Zwy1HDls0JgA==
 
 emoji-regex@^6.1.0:
   version "6.5.1"
