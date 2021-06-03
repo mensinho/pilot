@@ -3030,9 +3030,10 @@ former-kit-skin-pagarme@^0.1.0:
     emblematic-icons "0.1.1"
     react-dates "12.7.1"
 
-former-kit@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/former-kit/-/former-kit-0.1.0.tgz#2aa746956a510bbfcfe9f3043447f2f6769f5319"
+former-kit@^0.11.0:
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/former-kit/-/former-kit-0.11.0.tgz#9f920826da689290f89843de8bc02d3466447b3f"
+  integrity sha512-tWVFuPolB2Ja+qHKxnGnUFDtEk2McYP9V4HCyy1DsKuScLuoDLiB/nfyqfR0PFheQEqs0J9Upr3/ikK1Phj0vg==
   dependencies:
     classnames "2.2.5"
     moment "2.20.1"
