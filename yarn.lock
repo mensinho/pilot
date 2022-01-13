@@ -6309,6 +6309,11 @@ ramda@0.25.0:
   version "0.25.0"
   resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.25.0.tgz#8fdf68231cffa90bc2f9460390a0cb74a29b29a9"
 
+ramda@0.27.2:
+  version "0.27.2"
+  resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.27.2.tgz#84463226f7f36dc33592f6f4ed6374c48306c3f1"
+  integrity sha512-SbiLPU40JuJniHexQSAgad32hfwd+DRUdwF2PlVuI5RZD0/vahUco7R8vD86J/tcEKKF9vZrUVwgtmGCqlCKyA==
+
 randexp@0.4.6:
   version "0.4.6"
   resolved "https://registry.yarnpkg.com/randexp/-/randexp-0.4.6.tgz#e986ad5e5e31dae13ddd6f7b3019aa7c87f60ca3"
